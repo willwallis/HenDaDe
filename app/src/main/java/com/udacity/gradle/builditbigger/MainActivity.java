@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import com.knewto.android.jokes.WillJokes;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -40,7 +41,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        WillJokes myJoke = new WillJokes();
+        Toast.makeText(this, myJoke.tellJoke(), Toast.LENGTH_SHORT).show();
     }
 
 
