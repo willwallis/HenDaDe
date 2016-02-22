@@ -45,9 +45,25 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
-        //Intent myIntent = new Intent(this, JokeActivity.class);
-        //startActivity(myIntent);
+        new EndpointsAsyncTask().execute();
+
+        new EndpointsAsyncTask() {
+            @Override
+            protected void onPostExecute(String result) {
+                if (result != null) {
+                    Intent myIntent = new Intent(MainActivity.this, JokeActivity.class);
+                    myIntent.putExtra(NEW_JOKE, result);
+                    startActivity(myIntent);
+                   // startActivity(JokePresenterActivity.launchIntent(MainActivity.this, s));
+                } else {
+                    Toast.makeText(MainActivity.this, "No Jokes Returned", Toast.LENGTH_LONG).show();
+                }
+
+//                mProgressBar.setVisibility(View.GONE);
+            }
+        }.execute();
+
+
     }
 
 }
