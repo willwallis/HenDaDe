@@ -13,6 +13,8 @@ import com.knewto.android.jokes.WillJokes;
 public class JokeActivity extends AppCompatActivity {
 
     static final String CURRENT_JOKE = "currentJoke";
+    static final String NEW_JOKE = "newJoke";
+
     String theJoke;
 
     @Override
@@ -23,9 +25,12 @@ public class JokeActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             // Restore the existing joke
             theJoke = savedInstanceState.getString(CURRENT_JOKE);
-        } else {
-            // Get a new joke
-            setJoke();
+        } else if(getIntent() != null && getIntent().getExtras() != null)
+            // Get the joke from the async passed intent.
+            theJoke = getIntent().getExtras().getString(NEW_JOKE);
+        else {
+            // No joke available
+            theJoke = "Today isn't a funny day";
         }
 
 
