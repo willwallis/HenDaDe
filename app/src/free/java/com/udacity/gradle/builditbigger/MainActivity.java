@@ -8,6 +8,7 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -20,6 +21,7 @@ import com.knewto.android.jokeactivity.JokeActivity;
 public class MainActivity extends ActionBarActivity {
 
     InterstitialAd mInterstitialAd;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,19 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        // Create Loading indicator and hide
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
+
         requestNewInterstitial();
     }
 
+    // Required to hide loading indicator if user navigates from joke using back button
+    @Override
+    protected void onResume() {
+        super.onResume();
+        spinner.setVisibility(View.GONE);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,6 +85,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void goToJoke(){
+        spinner.setVisibility(View.VISIBLE);
         new EndpointsAsyncTask().execute();
 
         new EndpointsAsyncTask() {
@@ -85,8 +98,6 @@ public class MainActivity extends ActionBarActivity {
                 } else {
                     Toast.makeText(MainActivity.this, "No Jokes Returned", Toast.LENGTH_LONG).show();
                 }
-
-//                mProgressBar.setVisibility(View.GONE);
             }
         }.execute();
 
