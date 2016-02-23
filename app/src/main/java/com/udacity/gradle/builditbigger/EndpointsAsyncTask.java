@@ -32,6 +32,9 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 //                     options for running against local devappserver
 //                     - 10.0.2.2 is localhost's IP address in Android emulator
 //                     - turn off compression when running against local devappserver
+
+
+// START LOCAL VERSION
                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
@@ -39,10 +42,15 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
                             abstractGoogleClientRequest.setDisableGZipContent(true);
                         }
                     });
+// END LOCAL VERSION
+
             // end options for devappserver
 
                     // Server version - commented out for final task of testing against local GCE
+
+// START SERVER VERSION
 //                    .setRootUrl("https://nanodegree-jokester.appspot.com/_ah/api/");
+// END SERVER VERSION
 
             myApiService = builder.build();
         }
